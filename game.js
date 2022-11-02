@@ -17,7 +17,7 @@ const config = {
     }
 }
 
-var midget;
+var midgets;
 var platforms;
 
 const game = new Phaser.Game(config);
@@ -37,15 +37,20 @@ function create() {
         platforms.create(100 + i * 200, 575, 'grass');
     }
 
+    platforms.create(50, 150, 'cloud');
     platforms.create(200, 150, 'cloud');
     platforms.create(430, 300, 'cloud');
     platforms.create(600, 220, 'cloud');
     platforms.create(50, 500, 'cloud');
     platforms.create(750, 500, 'cloud');
-    
-    midget = this.physics.add.sprite(150, 50, 'midget').setScale(0.15);
 
-    this.physics.add.collider(midget, platforms)
+    midgets = this.physics.add.group();
+    
+    midgets.create(10, 50, 'midget').setScale(0.15);
+    midgets.create(60, 50, 'midget').setScale(0.15);
+    midgets.create(110, 50, 'midget').setScale(0.15);
+
+    this.physics.add.collider(midgets, platforms)
     
     this.anims.create({
         key: "walk",
@@ -54,20 +59,22 @@ function create() {
         repeat: -1
     });
 
+    console.log(midgets)
+    for (let midget of midgets.children.entries) midget.setVelocityX(100);
 }
 
 function update() {
-    if (midget.body.touching.down) midget.anims.play("walk", true);
-    else midget.anims.play("walk", false)
+    for (let midget of midgets.children.entries){
+        if (midget.body.touching.down) midget.anims.play("walk", true);
+        else midget.anims.play("walk", false);
 
-    if (midget.body.velocity.x === 0) midget.body.velocity.x = 100;
-
-    if (midget.body.touching.left) {
-        midget.body.velocity.x = 100;
-        midget.flipX = false;
-    }
-    if (midget.body.touching.right) {
-        midget.body.velocity.x = -100;
-        midget.flipX = true;
+        if (midget.body.touching.left) {
+            midget.body.velocity.x = 100;
+            midget.flipX = false;
+        }
+        if (midget.body.touching.right) {
+            midget.body.velocity.x = -100;
+            midget.flipX = true;
+        }
     }
 }
