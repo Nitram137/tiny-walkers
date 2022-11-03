@@ -70,14 +70,19 @@ function create() {
         spawnMidgets();
     })
 
-
-
-
     midgets = this.physics.add.group();
 
     spawnMidgets();
 
     this.physics.add.collider(midgets, platforms);
+
+    this.time.addEvent({
+        delay: 3000,
+        callback: () => {
+            spawnMidgets();
+        },
+        loop: true
+    })
 }
 
 function update() {
@@ -91,7 +96,7 @@ function spawnPlatforms() {
     platforms.create(750, 530, 'grass');
 
     for (let i=0;i<4;i++) {
-        platforms.create(100 + i * 200, 575, 'grass');
+        if(i !== 2) platforms.create(100 + i * 200, 575, 'grass');
     }
 
     platforms.create(80, 150, 'cloud');
