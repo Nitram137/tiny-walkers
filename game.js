@@ -20,6 +20,7 @@ const config = {
 var midgets;
 var platforms;
 var playBtn;
+var secretBtn;
 var tween;
 
 const game = new Phaser.Game(config);
@@ -43,6 +44,8 @@ function create() {
 
     playBtn = this.add.sprite(430, 300, 'play').setInteractive({cursor: 'pointer'});
 
+    secretBtn = this.add.sprite(600, 220, 'cloud').setInteractive({cursor: 'pointer'});
+
     tween = this.tweens.add({
         targets: [playBtn],
         scaleX: 1.1,
@@ -59,13 +62,22 @@ function create() {
         tween.seek(0).pause();
     })
 
+    playBtn.on('pointerup', () => {
+        // load 1st level
+    })
+
+    secretBtn.on('pointerup', () => {
+        spawnMidgets();
+    })
+
+
+
+
     midgets = this.physics.add.group();
 
     spawnMidgets();
 
     this.physics.add.collider(midgets, platforms);
-
-    for (let midget of midgets.children.entries) midget.setVelocityX(100);
 }
 
 function update() {
@@ -89,9 +101,11 @@ function spawnPlatforms() {
 }
 
 function spawnMidgets() {
-    midgets.create(10, 20, 'midget').setScale(0.1);
-    midgets.create(60, 20, 'midget').setScale(0.1);
-    midgets.create(110, 20, 'midget').setScale(0.1);
+    midgets.create(5, 10, 'midget').setScale(0.1);
+
+    for (let midget of midgets.children.entries) {
+        if (midget.body.velocity.x === 0) midget.setVelocityX(100);
+    }
 }
 
 function handleMidgetBehaviour() {
