@@ -19,12 +19,16 @@ const config = {
 
 var midgets;
 var platforms;
+var playBtn;
+var tween;
 
 const game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image("grass", "assets/sprites/grass.png")
-    this.load.image("cloud", "assets/sprites/cloud.png")
+    this.load.image("grass", "assets/sprites/grass.png");
+    this.load.image("cloud", "assets/sprites/cloud.png");
+    this.load.image("play", "assets/sprites/play.png");
+    this.load.image("title", "assets/sprites/title.png");
     this.load.spritesheet("midget", "assets/sprites/midget.png", 
     {frameWidth: 390, frameHeight: 429});
 }
@@ -33,37 +37,71 @@ function create() {
 
     platforms = this.physics.add.staticGroup();
 
+    spawnPlatforms();
+
+    this.add.sprite(150, 150, 'title');
+
+    playBtn = this.add.sprite(430, 300, 'play').setInteractive({cursor: 'pointer'});
+
+    tween = this.tweens.add({
+        targets: [playBtn],
+        scaleX: 1.1,
+        scaleY: 1.1,
+        duration: 100,
+        callbackScope: this,
+    }).pause();
+    
+    playBtn.on('pointerover', () => {
+        tween.play();
+    })
+
+    playBtn.on('pointerout', () => {
+        tween.seek(0).pause();
+    })
+
+    midgets = this.physics.add.group();
+
+    spawnMidgets();
+
+    this.physics.add.collider(midgets, platforms);
+
+    for (let midget of midgets.children.entries) midget.setVelocityX(100);
+}
+
+function update() {
+    handleMidgetBehaviour();
+}
+
+function spawnPlatforms() {
+    platforms.create(0, 485, 'grass');
+    platforms.create(800, 485, 'grass');
+    platforms.create(50, 530, 'grass');
+    platforms.create(750, 530, 'grass');
+
     for (let i=0;i<4;i++) {
         platforms.create(100 + i * 200, 575, 'grass');
     }
 
-    platforms.create(50, 150, 'cloud');
-    platforms.create(200, 150, 'cloud');
+    platforms.create(80, 150, 'cloud');
+    platforms.create(230, 150, 'cloud');
     platforms.create(430, 300, 'cloud');
     platforms.create(600, 220, 'cloud');
-    platforms.create(50, 500, 'cloud');
-    platforms.create(750, 500, 'cloud');
+}
 
-    midgets = this.physics.add.group();
-    
-    midgets.create(10, 50, 'midget').setScale(0.15);
-    midgets.create(60, 50, 'midget').setScale(0.15);
-    midgets.create(110, 50, 'midget').setScale(0.15);
+function spawnMidgets() {
+    midgets.create(10, 20, 'midget').setScale(0.1);
+    midgets.create(60, 20, 'midget').setScale(0.1);
+    midgets.create(110, 20, 'midget').setScale(0.1);
+}
 
-    this.physics.add.collider(midgets, platforms)
-    
-    this.anims.create({
+function handleMidgetBehaviour() {
+    game.anims.create({
         key: "walk",
         frames: "midget",
         frameRate: 10,
         repeat: -1
     });
 
-    console.log(midgets)
-    for (let midget of midgets.children.entries) midget.setVelocityX(100);
-}
-
-function update() {
     for (let midget of midgets.children.entries){
         if (midget.body.touching.down) midget.anims.play("walk", true);
         else midget.anims.play("walk", false);
