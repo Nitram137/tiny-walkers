@@ -1,3 +1,4 @@
+import Intro from './scenes/Intro.js';
 import MainMenu from './scenes/MainMenu.js';
 import Level1 from './scenes/Level1.js';
 
@@ -13,7 +14,7 @@ const config = {
             gravity: { y: 500 }
         }
     },
-    scene: [MainMenu, Level1]
+    scene: [Intro, MainMenu, Level1]
 }
 
 const game = new Phaser.Game(config);

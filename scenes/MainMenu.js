@@ -13,10 +13,14 @@ class MainMenu extends Phaser.Scene {
         this.load.image("title", "assets/sprites/title.png");
         this.load.spritesheet("midget", "assets/sprites/midget.png", 
         {frameWidth: 390, frameHeight: 429});
+        this.load.audio("walking", "assets/sounds/walking.mp3")
     }
 
     create() {
 
+        this.walking = this.sound.add('walking');
+        this.walking.loop = true;
+        
         this.platforms = this.physics.add.staticGroup();
     
         this.spawnPlatforms();
@@ -41,9 +45,12 @@ class MainMenu extends Phaser.Scene {
     
         this.playBtn.on('pointerout', () => {
             this.tween.seek(0).pause();
+            
         })
     
         this.playBtn.on('pointerup', () => {
+            this.game.sound.stopAll();
+            this.walking.play();
             this.scene.start('Level1')
         })
     
@@ -64,6 +71,7 @@ class MainMenu extends Phaser.Scene {
             },
             loop: true
         })
+
     }
 
     update() {
