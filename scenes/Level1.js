@@ -7,21 +7,23 @@ class Level1 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("grass", "assets/sprites/grass.png");
-        this.load.image("cloud", "assets/sprites/cloud.png");
-        this.load.spritesheet("midget", "assets/sprites/midget.png", 
-        {frameWidth: 390, frameHeight: 429});
+        this.load.image("arrow", "assets/sprites/arrow.png");
     }
 
     create() {
         this.platforms = this.physics.add.staticGroup();
+        this.clouds = this.physics.add.staticGroup();
         this.spawnPlatforms();
+
+        this.handleArrow();
 
         this.midgets = this.physics.add.group();
     
         this.spawnMidgets();
     
         this.physics.add.collider(this.midgets, this.platforms);
+        
+        this.handleClouds();
     
         this.time.addEvent({
             delay: 3000,
@@ -30,7 +32,6 @@ class Level1 extends Phaser.Scene {
             },
             loop: true
         })
-        console.log(this.platforms);
     }
 
     update() {
@@ -39,11 +40,17 @@ class Level1 extends Phaser.Scene {
 
     spawnPlatforms() {
         for (let i=0;i<5;i++) {
-            this.platforms.create(0, 60 + i * 120, 'grass');
-            this.platforms.create(800, 60 + i * 120, 'grass');
-            this.platforms.create(100 + i * 200, 575, 'grass').setDepth(1);
+            if (i > 0) this.platforms.create(-40 + i * 15, -45 + i * 125, 'grass').setDepth(i);
+            if (i > 0) this.platforms.create(-40 + i * 15, 0 + i * 125, 'grass').setDepth(i);
+            if (i > 0) this.platforms.create(-40 + i * 15, 45 + i * 125, 'grass').setDepth(i);
+
+            if (i < 4) this.platforms.create(800 + i * 15, 15 + i * 120, 'grass').setDepth(i);
+            if (i < 4) this.platforms.create(800 + i * 15, 60 + i * 120, 'grass').setDepth(i);
+            if (i < 4) this.platforms.create(800 + i * 15, 105 + i * 120, 'grass').setDepth(i);
+
+            this.platforms.create(100 + i * 200, 575, 'grass').setDepth(6);
             for (let j=0;j<4;j++) {
-                this.platforms.create(130 + i * 140, 110 + j * 120, 'cloud').setDepth(1);
+                this.clouds.create(130 + i * 140, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
             }
         }
     }
@@ -78,6 +85,55 @@ class Level1 extends Phaser.Scene {
                 midget.flipX = true;
             }
         }
+    }
+
+    handleClouds() {
+        this.cloudColliders = [];
+        this.cloudFades = [];
+        this.cloudAppears = [];
+
+        this.clouds.children.entries.forEach((cloud, i) => {
+
+            this.cloudColliders[i] = this.physics.add.collider(this.midgets, cloud);
+
+            this.cloudFades[i] = this.tweens.add({
+                targets: [cloud],
+                alpha: 0,
+                duration: 500,
+                callBackScope: this,
+            }).pause();
+
+            this.cloudAppears[i] = this.tweens.add({
+                targets: [cloud],
+                alpha: 1,
+                duration: 500,
+                callBackScope: this,
+            }).pause();
+            
+            cloud.on('pointerover', () => {
+                this.cloudFades[i].play();
+                this.cloudColliders[i].active = false;
+            })
+        
+            cloud.on('pointerout', () => {
+                this.cloudFades[i].pause()
+                this.cloudAppears[i].play();
+                this.cloudColliders[i].active = true;
+            })
+        })
+    }
+
+    handleArrow() {
+        this.arrow = this.physics.add.staticSprite(750, 520, 'arrow').setScale(0.1);
+
+        this.tweens.add({
+            targets: [this.arrow],
+            x: 760,
+            duration: 500,
+            yoyo: true,
+            repeat: -1,
+            callbackScope: this,
+        })
     }
     
 }
