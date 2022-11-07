@@ -8,6 +8,7 @@ class Level1 extends Phaser.Scene {
 
     preload() {
         this.load.image("arrow", "assets/sprites/arrow.png");
+        this.load.image("stone", "assets/sprites/stone.png")
     }
 
     create() {
@@ -45,17 +46,18 @@ class Level1 extends Phaser.Scene {
             if (i > 0) this.platforms.create(-40 + i * 15, -15 + i * 130, 'grass').setDepth(i);
             if (i > 0) this.platforms.create(-40 + i * 15, 30 + i * 130, 'grass').setDepth(i);
 
-            if (i < 4) this.platforms.create(800 + i * 15, 15 + i * 120, 'grass').setDepth(i);
-            if (i < 4) this.platforms.create(800 + i * 15, 60 + i * 120, 'grass').setDepth(i);
-            if (i < 4) this.platforms.create(800 + i * 15, 105 + i * 120, 'grass').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 15 + i * 120, 'stone').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 60 + i * 120, 'stone').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 105 + i * 120, 'stone').setDepth(i);
 
             this.platforms.create(100 + i * 200, 575, 'grass').setDepth(6);
             if (i < 4){
                 for (let j=0;j<4;j++) {
-                    this.clouds.create(160 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
+                    this.clouds.create(165 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
                 }
             }
         }
+        this.platforms.create(400, 540, 'grass');
     }
 
     spawnMidgets() {
