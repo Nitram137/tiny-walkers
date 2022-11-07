@@ -41,22 +41,22 @@ class MainMenu extends Phaser.Scene {
         
         this.playBtn.on('pointerover', () => {
             this.tween.play();
-        })
+        });
     
         this.playBtn.on('pointerout', () => {
             this.tween.seek(0).pause();
             
-        })
+        });
     
         this.playBtn.on('pointerup', () => {
             this.game.sound.stopAll();
             this.walking.play();
-            this.scene.start('Level1')
-        })
+            this.scene.start('Level1');
+        });
     
         this.secretBtn.on('pointerup', () => {
             this.spawnMidgets();
-        })
+        });
     
         this.midgets = this.physics.add.group();
     

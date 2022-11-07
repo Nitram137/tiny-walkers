@@ -36,21 +36,24 @@ class Level1 extends Phaser.Scene {
 
     update() {
         this.handleMidgetBehaviour();
+        this.goToNextLevel();
     }
 
     spawnPlatforms() {
         for (let i=0;i<5;i++) {
-            if (i > 0) this.platforms.create(-40 + i * 15, -45 + i * 125, 'grass').setDepth(i);
-            if (i > 0) this.platforms.create(-40 + i * 15, 0 + i * 125, 'grass').setDepth(i);
-            if (i > 0) this.platforms.create(-40 + i * 15, 45 + i * 125, 'grass').setDepth(i);
+            if (i > 0) this.platforms.create(-40 + i * 15, -60 + i * 130, 'grass').setDepth(i);
+            if (i > 0) this.platforms.create(-40 + i * 15, -15 + i * 130, 'grass').setDepth(i);
+            if (i > 0) this.platforms.create(-40 + i * 15, 30 + i * 130, 'grass').setDepth(i);
 
             if (i < 4) this.platforms.create(800 + i * 15, 15 + i * 120, 'grass').setDepth(i);
             if (i < 4) this.platforms.create(800 + i * 15, 60 + i * 120, 'grass').setDepth(i);
             if (i < 4) this.platforms.create(800 + i * 15, 105 + i * 120, 'grass').setDepth(i);
 
             this.platforms.create(100 + i * 200, 575, 'grass').setDepth(6);
-            for (let j=0;j<4;j++) {
-                this.clouds.create(130 + i * 140, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
+            if (i < 4){
+                for (let j=0;j<4;j++) {
+                    this.clouds.create(160 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
+                }
             }
         }
     }
@@ -113,13 +116,13 @@ class Level1 extends Phaser.Scene {
             cloud.on('pointerover', () => {
                 this.cloudFades[i].play();
                 this.cloudColliders[i].active = false;
-            })
+            });
         
             cloud.on('pointerout', () => {
-                this.cloudFades[i].pause()
+                this.cloudFades[i].pause();
                 this.cloudAppears[i].play();
                 this.cloudColliders[i].active = true;
-            })
+            });
         })
     }
 
@@ -134,6 +137,18 @@ class Level1 extends Phaser.Scene {
             repeat: -1,
             callbackScope: this,
         })
+    }
+
+    goToNextLevel() {
+        let midgetsPassed = 0;
+        for (let midget of this.midgets.children.entries){
+            if (midget.x > 800) {
+                ++midgetsPassed;
+            }
+        }
+        if (midgetsPassed === this.midgets.children.entries.length) {
+            this.scene.start('Level2');
+        }
     }
     
 }

@@ -25,7 +25,7 @@ class Intro extends Phaser.Scene {
             alpha: 1,
             duration: 1000,
             callBackScope: this,
-        })
+        });
 
         this.tween = this.tweens.add({
             targets: [this.splash],
@@ -38,17 +38,17 @@ class Intro extends Phaser.Scene {
         this.splash.on('pointerover', () => {
             this.tween.play();
             
-        })
+        });
     
         this.splash.on('pointerout', () => {
             this.tween.seek(0).pause();
             
-        })
+        });
 
         this.splash.on('pointerup', () => {
-            this.theme.play()
+            this.theme.play();
             this.scene.start('MainMenu');
-        })
+        });
     }
 }
 
