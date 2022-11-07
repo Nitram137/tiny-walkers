@@ -13,13 +13,16 @@ class MainMenu extends Phaser.Scene {
         this.load.image("title", "assets/sprites/title.png");
         this.load.spritesheet("midget", "assets/sprites/midget.png", 
         {frameWidth: 390, frameHeight: 429});
-        this.load.audio("walking", "assets/sounds/walking.mp3")
+        this.load.audio("intro", "assets/sounds/intro.mp3");
+        this.load.audio("loop", "assets/sounds/loop.mp3");
     }
 
     create() {
 
-        this.walking = this.sound.add('walking');
-        this.walking.loop = true;
+        this.intro = this.sound.add('intro');
+
+        this.theme = this.sound.add('loop');
+        this.theme.loop = true;
         
         this.platforms = this.physics.add.staticGroup();
     
@@ -49,8 +52,6 @@ class MainMenu extends Phaser.Scene {
         });
     
         this.playBtn.on('pointerup', () => {
-            this.game.sound.stopAll();
-            this.walking.play();
             this.scene.start('Level1');
         });
     
@@ -72,10 +73,17 @@ class MainMenu extends Phaser.Scene {
             loop: true
         })
 
+        this.loopStarted = false;
+        this.intro.play();
     }
 
     update() {
         this.handleMidgetBehaviour();
+        if (!this.intro.isPlaying && !this.loopStarted) {
+            console.log(this.theme);
+            this.loopStarted = true;
+            this.theme.play();
+        }
     }
     
     spawnPlatforms() {
