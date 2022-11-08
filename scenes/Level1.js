@@ -4,6 +4,8 @@ class Level1 extends Phaser.Scene {
         super({
             key: "Level1"
         });
+        this.midgetsPassed = 0;
+        this.midgetsFell = 0;
     }
 
     preload() {
@@ -50,14 +52,14 @@ class Level1 extends Phaser.Scene {
             if (i < 4) this.platforms.create(755 + i * 15, 60 + i * 120, 'stone').setDepth(i);
             if (i < 4) this.platforms.create(755 + i * 15, 105 + i * 120, 'stone').setDepth(i);
 
-            this.platforms.create(100 + i * 200, 575, 'grass').setDepth(6);
+            if (i !== 1) this.platforms.create(50 + i * 200, 575, 'grass').setDepth(6);
             if (i < 4){
                 for (let j=0;j<4;j++) {
                     this.clouds.create(165 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
                 }
             }
         }
-        this.platforms.create(400, 540, 'grass');
+        this.platforms.create(480, 540, 'grass');
     }
 
     spawnMidgets() {
@@ -142,13 +144,19 @@ class Level1 extends Phaser.Scene {
     }
 
     goToNextLevel() {
-        let midgetsPassed = 0;
         for (let midget of this.midgets.children.entries){
-            if (midget.x > 800) {
-                ++midgetsPassed;
+            if (!midget.out){
+                if (midget.x > 800) {
+                    ++this.midgetsPassed;
+                    midget.out = true;
+                }
+                if (midget.y > 600) {
+                    ++this.midgetsFell;
+                    midget.out = true;
+                }
             }
         }
-        if (midgetsPassed === this.midgets.children.entries.length) {
+        if (this.midgetsPassed + this.midgetsFell === this.midgets.children.entries.length) {
             this.scene.start('Level2');
         }
     }
