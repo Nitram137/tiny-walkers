@@ -8,11 +8,6 @@ class Level1 extends Phaser.Scene {
         this.midgetsFell = 0;
     }
 
-    preload() {
-        this.load.image("arrow", "assets/sprites/arrow.png");
-        this.load.image("stone", "assets/sprites/stone.png")
-    }
-
     create() {
         this.platforms = this.physics.add.staticGroup();
         this.clouds = this.physics.add.staticGroup();
@@ -52,7 +47,7 @@ class Level1 extends Phaser.Scene {
             if (i < 4) this.platforms.create(755 + i * 15, 60 + i * 120, 'stone').setDepth(i);
             if (i < 4) this.platforms.create(755 + i * 15, 105 + i * 120, 'stone').setDepth(i);
 
-            if (i !== 1) this.platforms.create(50 + i * 200, 575, 'grass').setDepth(6);
+            if (i !== 1 && i < 4) this.platforms.create(50 + i * 200, 575, 'grass').setDepth(6);
             if (i < 4){
                 for (let j=0;j<4;j++) {
                     this.clouds.create(165 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
@@ -60,6 +55,7 @@ class Level1 extends Phaser.Scene {
             }
         }
         this.platforms.create(480, 540, 'grass');
+        this.platforms.create(795, 580, 'stone');
     }
 
     spawnMidgets() {

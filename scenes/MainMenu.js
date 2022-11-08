@@ -6,17 +6,6 @@ class MainMenu extends Phaser.Scene {
         });
     }
 
-    preload() {
-        this.load.image("grass", "assets/sprites/grass.png");
-        this.load.image("cloud", "assets/sprites/cloud.png");
-        this.load.image("play", "assets/sprites/play.png");
-        this.load.image("title", "assets/sprites/title.png");
-        this.load.spritesheet("midget", "assets/sprites/midget.png", 
-        {frameWidth: 390, frameHeight: 429});
-        this.load.audio("intro", "assets/sounds/intro.mp3");
-        this.load.audio("loop", "assets/sounds/loop.mp3");
-    }
-
     create() {
 
         this.intro = this.sound.add('intro');
@@ -80,7 +69,6 @@ class MainMenu extends Phaser.Scene {
     update() {
         this.handleMidgetBehaviour();
         if (!this.intro.isPlaying && !this.loopStarted) {
-            console.log(this.theme);
             this.loopStarted = true;
             this.theme.play();
         }
