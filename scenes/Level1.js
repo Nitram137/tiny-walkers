@@ -43,14 +43,15 @@ class Level1 extends Phaser.Scene {
             if (i > 0) this.platforms.create(-40 + i * 15, -15 + i * 130, 'grass').setDepth(i);
             if (i > 0) this.platforms.create(-40 + i * 15, 30 + i * 130, 'grass').setDepth(i);
 
-            if (i < 4) this.platforms.create(755 + i * 15, 15 + i * 120, 'stone').setDepth(i);
-            if (i < 4) this.platforms.create(755 + i * 15, 60 + i * 120, 'stone').setDepth(i);
-            if (i < 4) this.platforms.create(755 + i * 15, 105 + i * 120, 'stone').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 20 + i * 115, 'stone').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 60 + i * 115, 'stone').setDepth(i);
+            if (i < 4) this.platforms.create(755 + i * 15, 100 + i * 115, 'stone').setDepth(i);
 
             if (i !== 1 && i < 4) this.platforms.create(50 + i * 200, 575, 'grass').setDepth(6);
-            if (i < 4){
-                for (let j=0;j<4;j++) {
-                    this.clouds.create(165 + i * 150 + 15 * j, 110 + j * 120, 'cloud').setDepth(6).setInteractive();
+            if (i < 4) {
+                for (let j=0;j<3;j++) {
+                    if(i === 0 || i === 3) this.clouds.create(165 + i * 150 + 15 * j, 110 + j * 140, 'cloud').setInteractive();
+                    else this.clouds.create(165 + i * 150 + 15 * j, 130 + j * 140, 'cloud').setInteractive();
                 }
             }
         }
@@ -113,7 +114,7 @@ class Level1 extends Phaser.Scene {
                 callBackScope: this,
             }).pause();
             
-            cloud.on('pointerover', () => {
+            cloud.on('pointermove', () => {
                 this.cloudFades[i].play();
                 this.cloudColliders[i].active = false;
             });
