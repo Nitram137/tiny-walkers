@@ -24,7 +24,7 @@ class Level1 extends Phaser.Scene {
         this.handleClouds();
     
         this.time.addEvent({
-            delay: 3000,
+            delay: 2000,
             callback: () => {
                 this.spawnMidgets();
             },
