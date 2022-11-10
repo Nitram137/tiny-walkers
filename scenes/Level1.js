@@ -9,6 +9,8 @@ class Level1 extends Phaser.Scene {
     }
 
     create() {
+        this.game.sound.stopAll();
+
         this.platforms = this.physics.add.staticGroup();
         this.clouds = this.physics.add.staticGroup();
         this.spawnPlatforms();

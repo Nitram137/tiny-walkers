@@ -56,7 +56,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.splash.on('pointerup', () => {
-            this.scene.start('Level2');
+            this.scene.start('MainMenu');
         });
     }
 }

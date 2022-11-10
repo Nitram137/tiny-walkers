@@ -4,6 +4,8 @@ class Level2 extends Phaser.Scene {
         super({
             key: "Level2"
         });
+        this.midgetsPassed = 0;
+        this.midgetsFell = 0;
     }
 
     create() {
@@ -32,6 +34,7 @@ class Level2 extends Phaser.Scene {
 
     update() {
         this.handleMidgetBehaviour();
+        this.goToNextLevel();
     }
 
     spawnPlatforms() {
@@ -117,6 +120,25 @@ class Level2 extends Phaser.Scene {
             repeat: -1,
             callbackScope: this,
         })
+    }
+
+    goToNextLevel() {
+        for (let midget of this.midgets.children.entries){
+            if (!midget.out){
+                if (midget.x > 800) {
+                    ++this.midgetsPassed;
+                    midget.out = true;
+                }
+                if (midget.y > 600) {
+                    ++this.midgetsFell;
+                    midget.out = true;
+                }
+            }
+        }
+        
+        if (this.midgetsPassed + this.midgetsFell === this.midgets.children.entries.length) {
+            this.scene.start('Level3');
+        }
     }
 }
 
