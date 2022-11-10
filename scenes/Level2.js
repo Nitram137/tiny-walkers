@@ -63,7 +63,7 @@ class Level2 extends Phaser.Scene {
         this.jellys.create(375, 585, 'jelly').setInteractive();
         this.jellys.create(650, 535, 'jelly').setInteractive();
         this.jellys.create(770, 400, 'jelly').setInteractive();
-        this.jellys.create(400, 315, 'jelly').setInteractive();
+        this.jellys.create(385, 315, 'jelly').setInteractive();
         this.jellys.create(430, 345, 'jelly').setInteractive();
         this.jellys.create(210, 315, 'jelly').setInteractive();
         this.jellys.create(650, 180, 'jelly').setInteractive();
@@ -135,7 +135,7 @@ class Level2 extends Phaser.Scene {
                 }
             }
         }
-        
+
         if (this.midgetsPassed + this.midgetsFell === this.midgets.children.entries.length) {
             this.scene.start('Level3');
         }
