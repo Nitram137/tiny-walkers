@@ -3,6 +3,7 @@ import MainMenu from './scenes/MainMenu.js';
 import Level1 from './scenes/Level1.js';
 import Level2 from './scenes/Level2.js';
 import Level3 from './scenes/Level3.js';
+import End from './scenes/End.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -16,7 +17,7 @@ const config = {
             gravity: { y: 500 }
         }
     },
-    scene: [Intro, MainMenu, Level1, Level2, Level3]
+    scene: [Intro, MainMenu, Level1, Level2, Level3, End]
 }
 
 const game = new Phaser.Game(config);

@@ -1,3 +1,5 @@
+import { goToNextLevel, midgetCount } from "../utility/common.js";
+
 class Level2 extends Phaser.Scene {
 
     constructor() {
@@ -34,7 +36,7 @@ class Level2 extends Phaser.Scene {
 
     update() {
         this.handleMidgetBehaviour();
-        this.goToNextLevel();
+        goToNextLevel(this, 'Level3');
     }
 
     spawnPlatforms() {
@@ -70,7 +72,7 @@ class Level2 extends Phaser.Scene {
     }
 
     spawnMidgets() {
-        if (this.midgets.children.entries.length < 10)
+        if (this.midgets.children.entries.length < midgetCount)
         this.midgets.create(5, 420, 'midget').setScale(0.1);
     
         for (let midget of this.midgets.children.entries) {
@@ -120,25 +122,6 @@ class Level2 extends Phaser.Scene {
             repeat: -1,
             callbackScope: this,
         })
-    }
-
-    goToNextLevel() {
-        for (let midget of this.midgets.children.entries){
-            if (!midget.out){
-                if (midget.x > 800) {
-                    ++this.midgetsPassed;
-                    midget.out = true;
-                }
-                if (midget.y > 600) {
-                    ++this.midgetsFell;
-                    midget.out = true;
-                }
-            }
-        }
-
-        if (this.midgetsPassed + this.midgetsFell === this.midgets.children.entries.length) {
-            this.scene.start('Level3');
-        }
     }
 }
 
