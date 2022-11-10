@@ -1,5 +1,21 @@
 
-export let midgetCount = 2;
+const allMidgets = 5;
+export let midgetCount = 5;
+
+let midgetCounterText;
+
+export const refreshMidgetCounter = currentScene => {
+    if (midgetCounterText) midgetCounterText.destroy();
+    midgetCounterText = currentScene.add.text(0, 565, `${allMidgets} / ${midgetCount}`, {
+        fontFamily: 'sans',
+        fontSize: '24px',
+        color: '#fff',
+        fontStyle: 'normal',
+        stroke: '#000000',
+        strokeThickness: 5,
+        shadow: { color: '#000000', fill: true, blur: 5, offsetX: 5, offsetY: 5 }
+    }).setDepth(10);
+}
 
 export const goToNextLevel = (currentScene, nextLevel) => {
     for (let midget of currentScene.midgets.children.entries){

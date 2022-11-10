@@ -1,4 +1,4 @@
-import { goToNextLevel, midgetCount } from "../utility/common.js";
+import { refreshMidgetCounter, goToNextLevel, midgetCount } from "../utility/common.js";
 
 class Level2 extends Phaser.Scene {
 
@@ -36,6 +36,7 @@ class Level2 extends Phaser.Scene {
 
     update() {
         this.handleMidgetBehaviour();
+        refreshMidgetCounter(this);
         goToNextLevel(this, 'Level3');
     }
 
