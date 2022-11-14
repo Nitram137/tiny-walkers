@@ -1,4 +1,4 @@
-import { refreshMidgetCounter, goToNextLevel, midgetCount } from "../utility/common.js";
+import { refreshMidgetCounter, goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour } from "../utility/common.js";
 
 class Level1 extends Phaser.Scene {
 
@@ -17,11 +17,11 @@ class Level1 extends Phaser.Scene {
         this.clouds = this.physics.add.staticGroup();
         this.spawnPlatforms();
 
-        this.handleArrow();
+        handleArrow(this, 750, 520);
 
         this.midgets = this.physics.add.group();
     
-        this.spawnMidgets();
+        spawnMidgets(this, 5, 10);
     
         this.physics.add.collider(this.midgets, this.platforms);
         
@@ -30,7 +30,7 @@ class Level1 extends Phaser.Scene {
         this.time.addEvent({
             delay: 2000,
             callback: () => {
-                this.spawnMidgets();
+                spawnMidgets(this, 5, 10);
             },
             loop: true
         })
@@ -38,7 +38,7 @@ class Level1 extends Phaser.Scene {
     }
 
     update() {
-        this.handleMidgetBehaviour();
+        handleMidgetBehaviour(this);
         refreshMidgetCounter(this);
         goToNextLevel(this, 'Level2');
     }
@@ -63,38 +63,6 @@ class Level1 extends Phaser.Scene {
         }
         this.platforms.create(480, 540, 'grass');
         this.platforms.create(795, 580, 'stone');
-    }
-
-    spawnMidgets() {
-        if (this.midgets.children.entries.length < midgetCount)
-        this.midgets.create(5, 10, 'midget').setScale(0.1);
-    
-        for (let midget of this.midgets.children.entries) {
-            if (midget.body.velocity.x === 0) midget.setVelocityX(100);
-        }
-    }
-    
-    handleMidgetBehaviour() {
-        this.anims.create({
-            key: "walk",
-            frames: "midget",
-            frameRate: 10,
-            repeat: -1
-        });
-    
-        for (let midget of this.midgets.children.entries){
-            if (midget.body.touching.down) midget.anims.play("walk", true);
-            else midget.anims.play("walk", false);
-    
-            if (midget.body.touching.left) {
-                midget.body.velocity.x = 100;
-                midget.flipX = false;
-            }
-            if (midget.body.touching.right) {
-                midget.body.velocity.x = -100;
-                midget.flipX = true;
-            }
-        }
     }
 
     handleClouds() {
@@ -132,20 +100,6 @@ class Level1 extends Phaser.Scene {
             });
         })
     }
-
-    handleArrow() {
-        this.arrow = this.physics.add.staticSprite(750, 520, 'arrow').setScale(0.1);
-
-        this.tweens.add({
-            targets: [this.arrow],
-            x: 760,
-            duration: 500,
-            yoyo: true,
-            repeat: -1,
-            callbackScope: this,
-        })
-    }
-    
 }
 
 export default Level1;

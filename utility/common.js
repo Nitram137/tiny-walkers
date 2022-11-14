@@ -1,6 +1,6 @@
 
-const allMidgets = 5;
-export let midgetCount = 5;
+let allMidgets = 5;
+let midgetCount = 5;
 
 let midgetCounterText;
 
@@ -35,6 +35,63 @@ export const goToNextLevel = (currentScene, nextLevel) => {
     if(midgetCount === 0) {
         currentScene.scene.start('End');
     } else if (currentScene.midgetsPassed + currentScene.midgetsFell === currentScene.midgets.children.entries.length) {
+        allMidgets = midgetCount;
         currentScene.scene.start(nextLevel);
     }
+}
+
+export const spawnMidgets = (currentScene, x, y) => {
+    if (currentScene.midgets.children.entries.length < allMidgets)
+    currentScene.midgets.create(x, y, 'midget').setScale(0.1);
+
+    for (let midget of currentScene.midgets.children.entries) {
+        if (midget.body.velocity.x === 0) midget.setVelocityX(100);
+    }
+}
+
+export const handleMidgetBehaviour = (currentScene) => {
+    currentScene.anims.create({
+        key: "walk",
+        frames: "midget",
+        frameRate: 10,
+        repeat: -1
+    });
+
+    for (let midget of currentScene.midgets.children.entries) {
+        if (midget.body.touching.down) midget.anims.play("walk", true);
+        else midget.anims.play("walk", false);
+
+        if (midget.body.touching.left) {
+            midget.body.velocity.x = 100;
+            midget.flipX = false;
+        }
+        if (midget.body.touching.right) {
+            midget.body.velocity.x = -100;
+            midget.flipX = true;
+        }
+
+        
+        if (currentScene.jellys){
+            for (let jelly of currentScene.jellys.children.entries) {
+                jelly.on('pointerup', () => {
+                    if(jelly.x - 50 < midget.x && jelly.x + 50 > midget.x && jelly.y - 50 < midget.y && jelly.y + 25 > midget.y) {
+                        midget.body.velocity.y = -400;
+                    }
+                });
+            }
+        }
+    }
+}
+
+export const handleArrow = (currentScene, x, y)  => {
+    currentScene.arrow = currentScene.physics.add.staticSprite(x, y, 'arrow').setScale(0.1);
+
+    currentScene.tweens.add({
+        targets: [currentScene.arrow],
+        x: x + 10,
+        duration: 500,
+        yoyo: true,
+        repeat: -1,
+        callbackScope: currentScene,
+    })
 }

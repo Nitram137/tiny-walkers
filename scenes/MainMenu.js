@@ -1,3 +1,5 @@
+import { handleMidgetBehaviour } from "../utility/common.js";
+
 class MainMenu extends Phaser.Scene {
 
     constructor() {
@@ -19,34 +21,7 @@ class MainMenu extends Phaser.Scene {
     
         this.add.sprite(150, 150, 'title');
     
-        this.playBtn = this.add.sprite(430, 300, 'play').setInteractive({cursor: 'pointer'});
-    
-        this.secretBtn = this.add.sprite(600, 220, 'cloud').setInteractive({cursor: 'pointer'});
-    
-        this.tween = this.tweens.add({
-            targets: [this.playBtn],
-            scaleX: 1.1,
-            scaleY: 1.1,
-            duration: 100,
-            callbackScope: this,
-        }).pause();
-        
-        this.playBtn.on('pointerover', () => {
-            this.tween.play();
-        });
-    
-        this.playBtn.on('pointerout', () => {
-            this.tween.seek(0).pause();
-            
-        });
-    
-        this.playBtn.on('pointerup', () => {
-            this.scene.start('Level1');
-        });
-    
-        this.secretBtn.on('pointerup', () => {
-            this.spawnMidgets();
-        });
+        this.handleButtons();
     
         this.midgets = this.physics.add.group();
     
@@ -67,7 +42,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     update() {
-        this.handleMidgetBehaviour();
+        handleMidgetBehaviour(this);
         if (!this.intro.isPlaying && !this.loopStarted) {
             this.loopStarted = true;
             this.theme.play();
@@ -97,28 +72,36 @@ class MainMenu extends Phaser.Scene {
             if (midget.body.velocity.x === 0) midget.setVelocityX(100);
         }
     }
+
+    handleButtons() {
+        this.playBtn = this.add.sprite(430, 300, 'play').setInteractive({cursor: 'pointer'});
     
-    handleMidgetBehaviour() {
-        this.anims.create({
-            key: "walk",
-            frames: "midget",
-            frameRate: 10,
-            repeat: -1
+        this.secretBtn = this.add.sprite(600, 220, 'cloud').setInteractive({cursor: 'pointer'});
+    
+        this.tween = this.tweens.add({
+            targets: [this.playBtn],
+            scaleX: 1.1,
+            scaleY: 1.1,
+            duration: 100,
+            callbackScope: this,
+        }).pause();
+        
+        this.playBtn.on('pointerover', () => {
+            this.tween.play();
         });
     
-        for (let midget of this.midgets.children.entries){
-            if (midget.body.touching.down) midget.anims.play("walk", true);
-            else midget.anims.play("walk", false);
+        this.playBtn.on('pointerout', () => {
+            this.tween.seek(0).pause();
+            
+        });
     
-            if (midget.body.touching.left) {
-                midget.body.velocity.x = 100;
-                midget.flipX = false;
-            }
-            if (midget.body.touching.right) {
-                midget.body.velocity.x = -100;
-                midget.flipX = true;
-            }
-        }
+        this.playBtn.on('pointerup', () => {
+            this.scene.start('Level1');
+        });
+    
+        this.secretBtn.on('pointerup', () => {
+            this.spawnMidgets();
+        });
     }
 }
 
