@@ -1,4 +1,4 @@
-import { handleMidgetBehaviour, refreshMidgetCounter, spawnMidgets } from "../utility/common.js";
+import { goToNextLevel, handleMidgetBehaviour, refreshMidgetCounter, spawnMidgets } from "../utility/common.js";
 
 class Level3 extends Phaser.Scene {
 
@@ -11,16 +11,23 @@ class Level3 extends Phaser.Scene {
     preload() {
         this.load.image("tiles", "assets/tilemaps/tiles.png");
         this.load.tilemapTiledJSON("map", "assets/tilemaps/falls.json");
+        this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
+        this.load.image("lilypads", "assets/sprites/lilypads.png");
     }
 
     create() {
 
-        const map = this.make.tilemap({ key: "map" });
+        this.ambience = this.sound.add('waterfall');
+        this.ambience.loop = true;
 
-        const tileset = map.addTilesetImage("tiles", "tiles");
+        this.map = this.make.tilemap({ key: "map" });
 
-        this.platforms = map.createLayer("Platforms", tileset, 0, 0);
-        const waterfall = map.createLayer("Waterfall", tileset, 0, 0);
+        this.tileset = this.map.addTilesetImage("tiles");
+
+        this.platforms = this.map.createLayer("Platforms", this.tileset, 0, 0);
+        this.waterfall = this.map.createLayer("Waterfall", this.tileset, 0, 0);
+
+        this.lilypads = this.physics.add.staticGroup();
 
         this.midgets = this.physics.add.group();
 
@@ -30,12 +37,50 @@ class Level3 extends Phaser.Scene {
 
         this.physics.add.collider(this.midgets, this.platforms);
 
-        console.log(this.platforms)
+        // waterfall effect
+        this.time.addEvent({
+            delay: 200,
+            callback: () => {
+                this.waterfall.culledTiles.forEach(tile => {
+                    tile.flipX = !tile.flipX;
+                });
+            },
+            loop: true
+        })
+
+        this.ambience.play();
+        this.handleLilypads();
     }
 
     update() {
         handleMidgetBehaviour(this);
         refreshMidgetCounter(this);
+        goToNextLevel(this, 'MainMenu');
+    }
+
+    handleLilypads() {
+        this.lilypads.create(250, 125, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(550, 125, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(150, 375, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(450, 375, "lilypads").setInteractive().setAlpha(0.5);
+
+        this.padColliders = [];
+
+        this.lilypads.children.entries.forEach((lilypad, i) => {
+
+            this.padColliders[i] = this.physics.add.collider(this.midgets, lilypad);
+            this.padColliders[i].active = false;
+
+            lilypad.on('pointerdown', () => {
+                lilypad.alpha = 1;
+                this.padColliders[i].active = true;
+            });
+
+            lilypad.on('pointerup', () => {
+                lilypad.alpha = 0.5;
+                this.padColliders[i].active = false;
+            });
+        })
     }
 
 }
