@@ -40,9 +40,21 @@ export const goToNextLevel = (currentScene, nextLevel) => {
     }
 }
 
-export const spawnMidgets = (currentScene, x, y) => {
+export const spawnMidgets = (currentScene, x, y, delay) => {
+    spawnMidget(currentScene, x, y);
+
+    currentScene.time.addEvent({
+        delay: delay,
+        callback: () => {
+            spawnMidget(currentScene, x, y);
+        },
+        loop: true
+    })
+}
+
+const spawnMidget = (currentScene, x, y) => {
     if (currentScene.midgets.children.entries.length < allMidgets)
-    currentScene.midgets.create(x, y, 'midget').setScale(0.1);
+        currentScene.midgets.create(x, y, 'midget').setScale(0.1);
 
     for (let midget of currentScene.midgets.children.entries) {
         if (midget.body.velocity.x === 0) midget.setVelocityX(100);

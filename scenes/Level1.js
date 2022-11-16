@@ -21,20 +21,11 @@ class Level1 extends Phaser.Scene {
 
         this.midgets = this.physics.add.group();
     
-        spawnMidgets(this, 5, 10);
+        spawnMidgets(this, 5, 10, 2000);
     
         this.physics.add.collider(this.midgets, this.platforms);
         
         this.handleClouds();
-    
-        this.time.addEvent({
-            delay: 2000,
-            callback: () => {
-                spawnMidgets(this, 5, 10);
-            },
-            loop: true
-        })
-
     }
 
     update() {

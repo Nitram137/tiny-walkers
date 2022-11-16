@@ -24,11 +24,13 @@ class Level3 extends Phaser.Scene {
 
         this.midgets = this.physics.add.group();
 
-        spawnMidgets(this, 5, 10);
+        spawnMidgets(this, 5, 10, 1000);
 
         this.platforms.setCollisionByProperty({ collides: true });
 
         this.physics.add.collider(this.midgets, this.platforms);
+
+        console.log(this.platforms)
     }
 
     update() {
