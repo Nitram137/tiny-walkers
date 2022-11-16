@@ -1,4 +1,4 @@
-import { goToNextLevel, handleMidgetBehaviour, refreshMidgetCounter, spawnMidgets } from "../utility/common.js";
+import { goToNextLevel, handleArrow, handleMidgetBehaviour, refreshMidgetCounter, spawnMidgets } from "../utility/common.js";
 
 class Level3 extends Phaser.Scene {
 
@@ -6,13 +6,13 @@ class Level3 extends Phaser.Scene {
         super({
             key: "Level3"
         });
+        this.midgetsPassed = 0;
+        this.midgetsFell = 0;
     }
 
     preload() {
         this.load.image("tiles", "assets/tilemaps/tiles.png");
         this.load.tilemapTiledJSON("map", "assets/tilemaps/falls.json");
-        this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
-        this.load.image("lilypads", "assets/sprites/lilypads.png");
     }
 
     create() {
@@ -50,6 +50,7 @@ class Level3 extends Phaser.Scene {
 
         this.ambience.play();
         this.handleLilypads();
+        handleArrow(this, 760, 470);
     }
 
     update() {
@@ -61,8 +62,12 @@ class Level3 extends Phaser.Scene {
     handleLilypads() {
         this.lilypads.create(250, 125, "lilypads").setInteractive().setAlpha(0.5);
         this.lilypads.create(550, 125, "lilypads").setInteractive().setAlpha(0.5);
-        this.lilypads.create(150, 375, "lilypads").setInteractive().setAlpha(0.5);
-        this.lilypads.create(450, 375, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(150, 325, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(350, 325, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(650, 325, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(150, 525, "lilypads").setInteractive().setAlpha(0.5);
+        this.lilypads.create(650, 525, "lilypads").setInteractive().setAlpha(0.5);
+
 
         this.padColliders = [];
 
@@ -77,6 +82,11 @@ class Level3 extends Phaser.Scene {
             });
 
             lilypad.on('pointerup', () => {
+                lilypad.alpha = 0.5;
+                this.padColliders[i].active = false;
+            });
+
+            lilypad.on('pointerout', () => {
                 lilypad.alpha = 0.5;
                 this.padColliders[i].active = false;
             });

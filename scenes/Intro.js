@@ -22,6 +22,9 @@ class Intro extends Phaser.Scene {
         this.load.image("stone", "assets/sprites/stone.png");
 
         this.load.image("jelly", "assets/sprites/jelly.png")
+
+        this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
+        this.load.image("lilypads", "assets/sprites/lilypads.png");
     }
 
     create() {
@@ -56,7 +59,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.splash.on('pointerup', () => {
-            this.scene.start('Level3');
+            this.scene.start('MainMenu');
         });
     }
 }
