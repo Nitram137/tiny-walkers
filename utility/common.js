@@ -70,14 +70,14 @@ export const handleMidgetBehaviour = (currentScene) => {
     });
 
     for (let midget of currentScene.midgets.children.entries) {
-        if (midget.body.touching.down) midget.anims.play("walk", true);
+        if (midget.body.blocked.down) midget.anims.play("walk", true);
         else midget.anims.play("walk", false);
-
-        if (midget.body.touching.left) {
+        
+        if (midget.body.blocked.left) {
             midget.body.velocity.x = 100;
             midget.flipX = false;
         }
-        if (midget.body.touching.right) {
+        if (midget.body.blocked.right) {
             midget.body.velocity.x = -100;
             midget.flipX = true;
         }
