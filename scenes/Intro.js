@@ -7,8 +7,9 @@ class Intro extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("splash", "assets/sprites/midget.png");
 
+        this.load.image("intro_background", "assets/sprites/intro_background.png");
+        this.load.image("menu_background", "assets/sprites/menu_background.png");
         this.load.image("grass", "assets/sprites/grass.png");
         this.load.image("cloud", "assets/sprites/cloud.png");
         this.load.image("play", "assets/sprites/play.png");
@@ -21,46 +22,65 @@ class Intro extends Phaser.Scene {
         this.load.image("arrow", "assets/sprites/arrow.png");
         this.load.image("stone", "assets/sprites/stone.png");
 
-        this.load.image("jelly", "assets/sprites/jelly.png")
+        this.load.image("cave_background", "assets/sprites/cave_background.png");
+        this.load.image("jelly", "assets/sprites/jelly.png");
 
         this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
+        this.load.image("waterfall_background", "assets/sprites/waterfall_background.png");
         this.load.image("lilypads", "assets/sprites/lilypads.png");
     }
 
     create() {
 
-        this.splash = this.add.sprite(400, 300, 'splash').setScale(0.3);
-        this.splash.setInteractive({cursor: 'pointer'});
-        this.splash.alpha = 0;
+        this.add.image(400, 300, 'intro_background');
+
+        this.midgetButton = this.add.sprite(400, 400, 'midget').setScale(0.4);
+        this.midgetButton.setInteractive({cursor: 'pointer'});
+        this.midgetButton.alpha = 0;
+
+        this.anims.create({
+            key: "waddle",
+            frames: "midget",
+            frameRate: 5,
+            repeat: -1
+        });
 
         this.tweens.add({
-            targets: [this.splash],
+            targets: [this.midgetButton],
             alpha: 1,
             duration: 1000,
             callBackScope: this,
         });
 
         this.tween = this.tweens.add({
-            targets: [this.splash],
-            scaleX: 0.35,
-            scaleY: 0.35,
+            targets: [this.midgetButton],
+            scaleX: 0.5,
+            scaleY: 0.5,
             duration: 100,
             callbackScope: this,
         }).pause();
+
+        this.time.addEvent({
+            delay: 1500,
+            callback: () => {
+                this.midgetButton.anims.play("waddle", true);
+            }
+        })
         
-        this.splash.on('pointerover', () => {
+        this.midgetButton.on('pointerover', () => {
             this.tween.play();
             
         });
     
-        this.splash.on('pointerout', () => {
+        this.midgetButton.on('pointerout', () => {
             this.tween.seek(0).pause();
             
         });
 
-        this.splash.on('pointerup', () => {
+        this.midgetButton.on('pointerup', () => {
             this.scene.start('MainMenu');
         });
+
     }
 }
 

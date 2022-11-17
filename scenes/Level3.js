@@ -17,6 +17,8 @@ class Level3 extends Phaser.Scene {
 
     create() {
 
+        this.add.image(400, 300, 'waterfall_background');
+
         this.ambience = this.sound.add('waterfall');
         this.ambience.loop = true;
 

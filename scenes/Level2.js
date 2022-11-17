@@ -11,6 +11,8 @@ class Level2 extends Phaser.Scene {
     }
 
     create() {
+        this.add.image(400, 300, 'cave_background');
+
         this.platforms = this.physics.add.staticGroup();
 
         this.jellys = this.physics.add.staticGroup();

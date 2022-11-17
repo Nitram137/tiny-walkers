@@ -10,6 +10,8 @@ class MainMenu extends Phaser.Scene {
 
     create() {
 
+        this.add.image(400, 300, 'menu_background');
+
         this.intro = this.sound.add('intro');
 
         this.theme = this.sound.add('loop');
