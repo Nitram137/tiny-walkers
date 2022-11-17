@@ -8,10 +8,14 @@ class Level2 extends Phaser.Scene {
         });
         this.midgetsPassed = 0;
         this.midgetsFell = 0;
+        this.switchBoing = true;
     }
 
     create() {
         this.add.image(400, 300, 'cave_background');
+
+        this.boing1 = this.sound.add('boing1');
+        this.boing2 = this.sound.add('boing2');
 
         this.platforms = this.physics.add.staticGroup();
 
@@ -26,6 +30,8 @@ class Level2 extends Phaser.Scene {
         handleArrow(this, 750, 30);
     
         this.physics.add.collider(this.midgets, this.platforms);
+
+        this.handleJellys();
     }
 
     update() {
@@ -64,6 +70,29 @@ class Level2 extends Phaser.Scene {
         this.jellys.create(430, 345, 'jelly').setInteractive();
         this.jellys.create(210, 315, 'jelly').setInteractive();
         this.jellys.create(650, 180, 'jelly').setInteractive();
+    }
+
+    handleJellys() {
+        for (let jelly of this.jellys.children.entries) {
+            jelly.on('pointerup', () => {
+                this.tweens.add({
+                    targets: [jelly],
+                    scaleX: 1.1,
+                    scaleY: 1.1,
+                    duration: 100,
+                    yoyo: true,
+                    callbackScope: this,
+                });
+                if (this.switchBoing) {
+                    this.boing1.play();
+                    this.switchBoing = false;
+                }
+                else {
+                    this.boing2.play();
+                    this.switchBoing = true;
+                }
+            });
+        }
     }
 }
 
