@@ -36,6 +36,7 @@ export const goToNextLevel = (currentScene, nextLevel) => {
         currentScene.scene.start('End');
     } else if (currentScene.midgetsPassed + currentScene.midgetsFell === currentScene.midgets.children.entries.length) {
         allMidgets = midgetCount;
+        currentScene.game.sound.stopAll();
         currentScene.scene.start(nextLevel);
     }
 }

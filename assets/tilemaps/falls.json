@@ -58,11 +58,11 @@
         {
          "columns":5,
          "firstgid":1,
-         "image":"tiles.png",
+         "image":"falls.png",
          "imageheight":50,
          "imagewidth":500,
          "margin":0,
-         "name":"tiles",
+         "name":"falls_tiles",
          "spacing":0,
          "tilecount":5,
          "tileheight":50,

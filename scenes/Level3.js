@@ -11,8 +11,8 @@ class Level3 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("tiles", "assets/tilemaps/tiles.png");
-        this.load.tilemapTiledJSON("map", "assets/tilemaps/falls.json");
+        this.load.image("falls_tiles", "assets/tilemaps/falls.png");
+        this.load.tilemapTiledJSON("falls", "assets/tilemaps/falls.json");
     }
 
     create() {
@@ -22,9 +22,9 @@ class Level3 extends Phaser.Scene {
         this.ambience = this.sound.add('waterfall');
         this.ambience.loop = true;
 
-        this.map = this.make.tilemap({ key: "map" });
+        this.map = this.make.tilemap({ key: "falls" });
 
-        this.tileset = this.map.addTilesetImage("tiles");
+        this.tileset = this.map.addTilesetImage("falls_tiles");
 
         this.platforms = this.map.createLayer("Platforms", this.tileset, 0, 0);
         this.waterfall = this.map.createLayer("Waterfall", this.tileset, 0, 0);
@@ -58,7 +58,7 @@ class Level3 extends Phaser.Scene {
     update() {
         handleMidgetBehaviour(this);
         refreshMidgetCounter(this);
-        goToNextLevel(this, 'MainMenu');
+        goToNextLevel(this, 'Level4');
     }
 
     handleLilypads() {
