@@ -18,7 +18,7 @@ class Level4 extends Phaser.Scene {
     create() {
         this.camera = this.cameras.main;
         this.map = this.make.tilemap({ key: "dungeon" });
-        console.log(this);
+        
         this.camera.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
         this.tileset = this.map.addTilesetImage("dungeon_tiles");
@@ -31,9 +31,32 @@ class Level4 extends Phaser.Scene {
         spawnMidgets(this, 5, 100, 2000);
         
         this.walls.setCollisionByProperty({ collides: true });
+        this.doors.setCollisionByProperty({ collides: true });
 
         this.physics.add.collider(this.midgets, this.walls);
+        this.physics.add.collider(this.midgets, this.doors);
 
+        // open doors randomly at start
+        this.doors.forEachTile((door) => {
+            if (door.properties.collides === true) {
+                if (Phaser.Math.Between(0, 1)) this.toggleDoor(door);
+            }
+        })
+
+        this.input.on('pointerup', function (pointer) {
+            let door = this.map.getTileAtWorldXY(pointer.worldX, pointer.worldY);
+            if (door) this.toggleDoor(door);
+            console.log(door)
+        }, this);
+
+        this.handleCamera();
+    }
+
+    update() {
+        handleMidgetBehaviour(this);
+    }
+
+    handleCamera() {
         this.input.on("pointermove", (pointer) => {
             if (!pointer.isDown) return;
         
@@ -41,7 +64,7 @@ class Level4 extends Phaser.Scene {
             this.camera.scrollY -= (pointer.y - pointer.prevPosition.y) / this.camera.zoom;
         });
 
-        this.input.on("wheel",  (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
+        this.input.on("wheel", (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
             if (deltaY > 0) {
                 var newZoom = this.camera.zoom - .05;
                 if (newZoom > 0.6) {
@@ -55,11 +78,13 @@ class Level4 extends Phaser.Scene {
                     this.camera.zoom = newZoom;     
                 }
             }
-          });
+        });
     }
 
-    update() {
-        handleMidgetBehaviour(this);
+    toggleDoor(door) {
+        if (door.alpha === 1) door.alpha = 0.5;
+        else door.alpha = 1;
+        door.collideUp = !door.collideUp;
     }
 }
 
