@@ -14,7 +14,7 @@ export const refreshMidgetCounter = currentScene => {
         stroke: '#000000',
         strokeThickness: 5,
         shadow: { color: '#000000', fill: true, blur: 5, offsetX: 5, offsetY: 5 }
-    }).setDepth(10);
+    }).setDepth(10).setScrollFactor(0);
 }
 
 export const goToNextLevel = (currentScene, nextLevel) => {
