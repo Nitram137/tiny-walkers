@@ -4,17 +4,30 @@ let midgetCount = 5;
 
 let midgetCounterText;
 
-export const refreshMidgetCounter = currentScene => {
-    if (midgetCounterText) midgetCounterText.destroy();
-    midgetCounterText = currentScene.add.text(0, 565, `${allMidgets} / ${midgetCount}`, {
-        fontFamily: 'sans',
-        fontSize: '24px',
-        color: '#fff',
-        fontStyle: 'normal',
-        stroke: '#000000',
-        strokeThickness: 5,
-        shadow: { color: '#000000', fill: true, blur: 5, offsetX: 5, offsetY: 5 }
-    }).setDepth(10).setScrollFactor(0);
+export class MidgetCounter extends Phaser.Scene {
+
+    constructor() {
+        super({
+            key: "MidgetCounter"
+        });
+    }
+
+    create() {
+        this.midgetCounterText = this.add.text(0, 565, `${allMidgets} / ${midgetCount}`, {
+            fontFamily: 'sans',
+            fontSize: '24px',
+            color: '#fff',
+            fontStyle: 'normal',
+            stroke: '#000000',
+            strokeThickness: 5,
+            shadow: { color: '#000000', fill: true, blur: 5, offsetX: 5, offsetY: 5 }
+        });
+    }
+
+    update() {
+        this.midgetCounterText.setText(`${allMidgets} / ${midgetCount}`);
+    }
+
 }
 
 export const goToNextLevel = (currentScene, nextLevel) => {

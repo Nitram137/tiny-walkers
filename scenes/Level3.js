@@ -1,4 +1,4 @@
-import { goToNextLevel, handleArrow, handleMidgetBehaviour, refreshMidgetCounter, spawnMidgets } from "../utility/common.js";
+import { goToNextLevel, handleArrow, handleMidgetBehaviour, spawnMidgets } from "../utility/common.js";
 
 class Level3 extends Phaser.Scene {
 
@@ -57,7 +57,6 @@ class Level3 extends Phaser.Scene {
 
     update() {
         handleMidgetBehaviour(this);
-        refreshMidgetCounter(this);
         goToNextLevel(this, 'Level4');
     }
 

@@ -1,4 +1,4 @@
-import { refreshMidgetCounter, goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour } from "../utility/common.js";
+import { goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour } from "../utility/common.js";
 
 class Level1 extends Phaser.Scene {
 
@@ -11,6 +11,9 @@ class Level1 extends Phaser.Scene {
     }
 
     create() {
+
+        this.scene.launch("MidgetCounter");
+
         this.game.sound.stopAll();
 
         this.platforms = this.physics.add.staticGroup();
@@ -30,7 +33,6 @@ class Level1 extends Phaser.Scene {
 
     update() {
         handleMidgetBehaviour(this);
-        refreshMidgetCounter(this);
         goToNextLevel(this, 'Level2');
     }
 
