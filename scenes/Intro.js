@@ -30,6 +30,9 @@ class Intro extends Phaser.Scene {
         this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
         this.load.image("waterfall_background", "assets/sprites/waterfall_background.png");
         this.load.image("lilypads", "assets/sprites/lilypads.png");
+
+        this.load.image("dungeon_background", "assets/sprites/dungeon_background.png");
+        this.load.audio("unlock", "assets/sounds/unlock.mp3");
     }
 
     create() {

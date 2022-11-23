@@ -16,6 +16,11 @@ class Level4 extends Phaser.Scene {
     }
 
     create() {
+
+        this.add.image(0, 0, 'dungeon_background').setOrigin(0, 0);
+
+        this.doorSound = this.sound.add('unlock');
+
         this.camera = this.cameras.main;
         this.map = this.make.tilemap({ key: "dungeon" });
         
@@ -48,12 +53,13 @@ class Level4 extends Phaser.Scene {
                     if (door.properties.collides && (clickedDoor.x !== door.x || clickedDoor.y !== door.y) && Phaser.Math.Between(0, 1)) this.toggleDoor(door);
                 })
                 this.toggleDoor(clickedDoor);
+                this.doorSound.play();
             }
         }, this);
 
         this.handleCamera();
 
-        handleArrow(this, 1560, 1300);
+        handleArrow(this, 1560, 1400);
     }
 
     update() {
