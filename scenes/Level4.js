@@ -38,18 +38,22 @@ class Level4 extends Phaser.Scene {
 
         // open doors randomly at start
         this.doors.forEachTile((door) => {
-            if (door.properties.collides === true) {
-                if (Phaser.Math.Between(0, 1)) this.toggleDoor(door);
-            }
+            if (door.properties.collides && Phaser.Math.Between(0, 1)) this.toggleDoor(door);
         })
 
         this.input.on('pointerup', function (pointer) {
-            let door = this.map.getTileAtWorldXY(pointer.worldX, pointer.worldY);
-            if (door) this.toggleDoor(door);
-            console.log(door)
+            let clickedDoor = this.map.getTileAtWorldXY(pointer.worldX, pointer.worldY);
+            if (clickedDoor) {
+                this.doors.forEachTile((door) => {
+                    if (door.properties.collides && (clickedDoor.x !== door.x || clickedDoor.y !== door.y) && Phaser.Math.Between(0, 1)) this.toggleDoor(door);
+                })
+                this.toggleDoor(clickedDoor);
+            }
         }, this);
 
         this.handleCamera();
+
+        handleArrow(this, 1560, 1300);
     }
 
     update() {
