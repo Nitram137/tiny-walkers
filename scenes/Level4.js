@@ -59,7 +59,7 @@ class Level4 extends Phaser.Scene {
 
         this.handleCamera();
 
-        handleArrow(this, 1560, 1400);
+        handleArrow(this, 1380, 1350);
     }
 
     update() {

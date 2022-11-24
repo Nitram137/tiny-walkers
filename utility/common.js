@@ -95,6 +95,9 @@ export const handleMidgetBehaviour = (currentScene) => {
             midget.body.velocity.x = -100;
             midget.flipX = true;
         }
+        if (midget.x > 1400) {
+            midget.body.velocity.y = -300;
+        }
 
         
         if (currentScene.jellys){
