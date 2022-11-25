@@ -64,6 +64,7 @@ class Level4 extends Phaser.Scene {
 
     update() {
         handleMidgetBehaviour(this);
+        goToNextLevel(this, 'MainMenu');
     }
 
     handleCamera() {

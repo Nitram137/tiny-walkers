@@ -33,11 +33,11 @@ export class MidgetCounter extends Phaser.Scene {
 export const goToNextLevel = (currentScene, nextLevel) => {
     for (let midget of currentScene.midgets.children.entries){
         if (!midget.out){
-            if (midget.x > 800) {
+            if ((midget.x > 800 && currentScene.scene.key !== "Level4") || (midget.y < 0 && currentScene.scene.key === "Level4")) {
                 ++currentScene.midgetsPassed;
                 midget.out = true;
             }
-            if (midget.y > 600) {
+            if ((midget.y > 600 && currentScene.scene.key !== "Level4") || (midget.y > 1800 && currentScene.scene.key === "Level4")) {
                 ++currentScene.midgetsFell;
                 midget.out = true;
                 midgetCount--;
