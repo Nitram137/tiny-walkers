@@ -4,6 +4,7 @@ import Level1 from './scenes/Level1.js';
 import Level2 from './scenes/Level2.js';
 import Level3 from './scenes/Level3.js';
 import Level4 from './scenes/Level4.js';
+import Level5 from './scenes/Level5.js';
 import End from './scenes/End.js';
 import { MidgetCounter } from './utility/common.js';
 
@@ -19,7 +20,7 @@ const config = {
             gravity: { y: 500 }
         }
     },
-    scene: [Intro, MainMenu, Level1, Level2, Level3, Level4, End, MidgetCounter]
+    scene: [Intro, MainMenu, Level1, Level2, Level3, Level4, Level5, End, MidgetCounter]
 }
 
 const game = new Phaser.Game(config);
