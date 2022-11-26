@@ -95,7 +95,7 @@ export const handleMidgetBehaviour = (currentScene) => {
             midget.body.velocity.x = -100;
             midget.flipX = true;
         }
-        if (midget.x > 1400) {
+        if ((midget.x > 1400 && currentScene.scene.key === "Level4") || (midget.x > 7 * 50 && midget.x < 10 * 50 && midget.y > 54 * 50 && currentScene.scene.key === "Level5")) {
             midget.body.velocity.y = -300;
         }
 
@@ -123,4 +123,29 @@ export const handleArrow = (currentScene, x, y)  => {
         repeat: -1,
         callbackScope: currentScene,
     })
+}
+
+export const handleCamera = currentScene => {
+    currentScene.input.on("pointermove", (pointer) => {
+        if (!pointer.isDown) return;
+    
+        currentScene.camera.scrollX -= (pointer.x - pointer.prevPosition.x) / currentScene.camera.zoom;
+        currentScene.camera.scrollY -= (pointer.y - pointer.prevPosition.y) / currentScene.camera.zoom;
+    });
+
+    currentScene.input.on("wheel", (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
+        if (deltaY > 0) {
+            var newZoom = currentScene.camera.zoom - .05;
+            if (newZoom > 0.6) {
+                currentScene.camera.zoom = newZoom;     
+            }
+        }
+      
+        if (deltaY < 0) {
+            var newZoom = currentScene.camera.zoom + .05;
+            if (newZoom < 1) {
+                currentScene.camera.zoom = newZoom;     
+            }
+        }
+    });
 }
