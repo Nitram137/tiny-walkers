@@ -72,6 +72,13 @@ const spawnMidget = (currentScene, x, y) => {
 
     for (let midget of currentScene.midgets.children.entries) {
         if (midget.body.velocity.x === 0) midget.setVelocityX(100);
+        
+        if (currentScene.scene.key === "Level5") {
+            midget.setInteractive();
+            midget.on('pointerover', () => {
+                midget.body.velocity.y = -300;
+            })
+        }
     }
 }
 
@@ -84,8 +91,15 @@ export const handleMidgetBehaviour = (currentScene) => {
     });
 
     for (let midget of currentScene.midgets.children.entries) {
-        if (midget.body.blocked.down) midget.anims.play("walk", true);
-        else midget.anims.play("walk", false);
+        if (midget.body.blocked.down) {
+            midget.anims.play("walk", true);
+            midget.angle = 0;
+        }
+        else {
+            midget.anims.play("walk", false);
+            if (midget.body.velocity.x > 0) midget.angle++;
+            else if (midget.body.velocity.x < 0) midget.angle--;
+        }
         
         if (midget.body.blocked.left) {
             midget.body.velocity.x = 100;
@@ -98,7 +112,6 @@ export const handleMidgetBehaviour = (currentScene) => {
         if ((midget.x > 1400 && currentScene.scene.key === "Level4") || (midget.x > 7 * 50 && midget.x < 10 * 50 && midget.y > 54 * 50 && currentScene.scene.key === "Level5")) {
             midget.body.velocity.y = -300;
         }
-
         
         if (currentScene.jellys){
             for (let jelly of currentScene.jellys.children.entries) {
