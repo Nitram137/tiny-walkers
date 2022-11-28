@@ -72,7 +72,7 @@ const spawnMidget = (currentScene, x, y) => {
 
     for (let midget of currentScene.midgets.children.entries) {
         if (midget.body.velocity.x === 0) midget.setVelocityX(100);
-        
+
         if (currentScene.scene.key === "Level5") {
             midget.setInteractive();
             midget.on('pointerover', () => {
@@ -97,8 +97,7 @@ export const handleMidgetBehaviour = (currentScene) => {
         }
         else {
             midget.anims.play("walk", false);
-            if (midget.body.velocity.x > 0) midget.angle++;
-            else if (midget.body.velocity.x < 0) midget.angle--;
+            if (midget.body.velocity.x !== 0) midget.angle += (midget.body.velocity.x / 50);
         }
         
         if (midget.body.blocked.left) {

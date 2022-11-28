@@ -27,12 +27,20 @@ class Intro extends Phaser.Scene {
         this.load.audio("boing1", "assets/sounds/boing1.mp3");
         this.load.audio("boing2", "assets/sounds/boing2.mp3");
 
+        this.load.image("falls_tiles", "assets/tilemaps/falls.png");
+        this.load.tilemapTiledJSON("falls", "assets/tilemaps/falls.json");
         this.load.audio("waterfall", "assets/sounds/waterfall.mp3");
         this.load.image("waterfall_background", "assets/sprites/waterfall_background.png");
         this.load.image("lilypads", "assets/sprites/lilypads.png");
 
+        this.load.image("dungeon_tiles", "assets/tilemaps/dungeon.png");
+        this.load.tilemapTiledJSON("dungeon", "assets/tilemaps/dungeon.json");
         this.load.image("dungeon_background", "assets/sprites/dungeon_background.png");
         this.load.audio("unlock", "assets/sounds/unlock.mp3");
+
+        this.load.image("dungeon_tiles", "assets/tilemaps/dungeon.png");
+        this.load.tilemapTiledJSON("tower", "assets/tilemaps/tower.json");
+        this.load.image("dark_cloud", "assets/sprites/dark_cloud.png");
     }
 
     create() {

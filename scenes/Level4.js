@@ -10,11 +10,6 @@ class Level4 extends Phaser.Scene {
         this.midgetsFell = 0;
     }
 
-    preload() {
-        this.load.image("dungeon_tiles", "assets/tilemaps/dungeon.png");
-        this.load.tilemapTiledJSON("dungeon", "assets/tilemaps/dungeon.json");
-    }
-
     create() {
 
         this.add.image(0, 0, 'dungeon_background').setOrigin(0, 0);

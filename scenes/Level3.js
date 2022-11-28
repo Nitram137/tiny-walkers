@@ -10,11 +10,6 @@ class Level3 extends Phaser.Scene {
         this.midgetsFell = 0;
     }
 
-    preload() {
-        this.load.image("falls_tiles", "assets/tilemaps/falls.png");
-        this.load.tilemapTiledJSON("falls", "assets/tilemaps/falls.json");
-    }
-
     create() {
 
         this.add.image(400, 300, 'waterfall_background');
