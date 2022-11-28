@@ -1,5 +1,6 @@
 import { goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour, handleCamera } from "../utility/common.js";
 
+// TODO: particle effects, sound, dragon, magic
 class Level5 extends Phaser.Scene {
 
     constructor() {
