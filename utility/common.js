@@ -67,18 +67,9 @@ export const spawnMidgets = (currentScene, x, y, delay) => {
 }
 
 const spawnMidget = (currentScene, x, y) => {
-    if (currentScene.midgets.children.entries.length < allMidgets)
-        currentScene.midgets.create(x, y, 'midget').setScale(0.1);
-
-    for (let midget of currentScene.midgets.children.entries) {
-        if (midget.body.velocity.x === 0) midget.setVelocityX(100);
-
-        if (currentScene.scene.key === "Level5") {
-            midget.setInteractive();
-            midget.on('pointerover', () => {
-                midget.body.velocity.y = -300;
-            })
-        }
+    if (currentScene.midgets.children.entries.length < allMidgets) { 
+        let midget = currentScene.midgets.create(x, y, 'midget').setScale(0.1);
+        midget.setVelocityX(100);
     }
 }
 
