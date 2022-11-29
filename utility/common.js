@@ -33,11 +33,15 @@ export class MidgetCounter extends Phaser.Scene {
 export const goToNextLevel = (currentScene, nextLevel) => {
     for (let midget of currentScene.midgets.children.entries){
         if (!midget.out){
-            if ((midget.x > 800 && currentScene.scene.key !== "Level4") || (midget.y < 0 && currentScene.scene.key === "Level4")) {
+            if ((midget.x > 800 && currentScene.scene.key !== "Level4" && currentScene.scene.key !== "Level5") || 
+                (midget.y < 0 && currentScene.scene.key === "Level4") ||
+                (midget.x > 1600 && midget.y < 600 && currentScene.scene.key === "Level5")) {
                 ++currentScene.midgetsPassed;
                 midget.out = true;
             }
-            if ((midget.y > 600 && currentScene.scene.key !== "Level4") || (midget.y > 1800 && currentScene.scene.key === "Level4")) {
+            if ((midget.y > 600 && currentScene.scene.key !== "Level4" && currentScene.scene.key !== "Level5") || 
+                (midget.y > 1800 && currentScene.scene.key === "Level4") || 
+                (midget.y > 3250 && currentScene.scene.key === "Level5")) {
                 ++currentScene.midgetsFell;
                 midget.out = true;
                 midgetCount--;
@@ -88,7 +92,7 @@ export const handleMidgetBehaviour = (currentScene) => {
         }
         else {
             midget.anims.play("walk", false);
-            if (midget.body.velocity.x !== 0) midget.angle += (midget.body.velocity.x / 50);
+            if (midget.body.velocity.x !== 0) midget.angle += (midget.body.velocity.x / 30);
         }
         
         if (midget.body.blocked.left) {

@@ -1,6 +1,5 @@
 import { goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour, handleCamera } from "../utility/common.js";
 
-// TODO: particle effects, sound, dragon, magic
 class Level5 extends Phaser.Scene {
 
     constructor() {
@@ -90,6 +89,8 @@ class Level5 extends Phaser.Scene {
             this.purpleFume.setPosition(pointer.worldX, pointer.worldY);
             this.whiteStar.setPosition(pointer.worldX, pointer.worldY);
         });
+
+        handleArrow(this, 1530, 450)
     }
 
     update() {
@@ -102,6 +103,7 @@ class Level5 extends Phaser.Scene {
                 })
             }
         }
+        goToNextLevel(this, "MainMenu");
     }
 
     spawnClouds() {
@@ -115,6 +117,7 @@ class Level5 extends Phaser.Scene {
         this.clouds.create(25 * 50, 25 * 50, 'dark_cloud');
         this.clouds.create(5 * 50, 14 * 50, 'dark_cloud');
         this.clouds.create(3 * 50, 13 * 50, 'dark_cloud');
+        this.clouds.create(1 * 50, 12 * 50, 'dark_cloud');
         
     }
 

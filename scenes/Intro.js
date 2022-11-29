@@ -94,7 +94,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.midgetButton.on('pointerup', () => {
-            this.scene.start('Level4');
+            this.scene.start('Level5');
         });
 
     }
