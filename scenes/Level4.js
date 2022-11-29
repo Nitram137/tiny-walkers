@@ -1,4 +1,4 @@
-import { goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour } from "../utility/common.js";
+import { goToNextLevel, spawnMidgets, handleArrow, handleMidgetBehaviour, handleCamera } from "../utility/common.js";
 
 class Level4 extends Phaser.Scene {
 
@@ -13,6 +13,32 @@ class Level4 extends Phaser.Scene {
     create() {
 
         this.add.image(0, 0, 'dungeon_background').setOrigin(0, 0);
+
+        var magicBound = new Phaser.Geom.Rectangle(1400, 0, 150, 1800);
+
+        this.add.particles("purple").createEmitter({
+            x: 1480,
+            y: 1800,
+            speed: { min: 0, max: 300 },
+            angle: { min: 200, max: 340 },
+            scale: { start: 1, end: 1.5 },
+            alpha: { start: 0.5, end: 0 },
+            lifespan: 10000,
+            bounce: 0.8,
+            bounds: magicBound,
+        });
+
+        this.add.particles("star").createEmitter({
+            x: 1480,
+            y: 1800,
+            speed: { min: 0, max: 200 },
+            angle: { min: 180, max: 360 },
+            scale: { min: 0.1, max: 0 },
+            alpha: { min: 1, max: 0 },
+            lifespan: 10000,
+            bounce: 0.8,
+            bounds: magicBound,
+        });
 
         this.doorSound = this.sound.add('unlock');
 

@@ -14,6 +14,32 @@ class Level5 extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'tower_background').setOrigin(0, 0);
 
+        var magicBound = new Phaser.Geom.Rectangle(350, 2750, 150, 500);
+
+        this.add.particles("purple").createEmitter({
+            x: 425,
+            y: 3200,
+            speed: { min: 100, max: 300 },
+            angle: { min: 200, max: 340 },
+            scale: { start: 1, end: 1.5 },
+            alpha: { start: 0.5, end: 0 },
+            lifespan: 3000,
+            bounce: 0.8,
+            bounds: magicBound,
+        });
+
+        this.add.particles("star").createEmitter({
+            x: 425,
+            y: 3200,
+            speed: { min: 100, max: 200 },
+            angle: { min: 180, max: 360 },
+            scale: { min: 0.1, max: 0 },
+            alpha: { min: 1, max: 0 },
+            lifespan: 2500,
+            bounce: 0.8,
+            bounds: magicBound,
+        });
+
         this.camera = this.cameras.main;
         this.map = this.make.tilemap({ key: "tower" });
         
@@ -43,7 +69,7 @@ class Level5 extends Phaser.Scene {
             y: 0,
             speed: { min: 0, max: 50 },
             angle: { min: 0, max: 360 },
-            scale: { start: 0, end: 1.5 },
+            scale: { start: 0, end: 1 },
             alpha: { start: 0.5, end: 0 },
             lifespan: 1000
         });
@@ -56,7 +82,7 @@ class Level5 extends Phaser.Scene {
             angle: { min: 0, max: 360 },
             scale: { min: 0.1, max: 0 },
             alpha: { min: 1, max: 0 },
-            lifespan: 1000
+            lifespan: 500
         });
         this.whiteStar.reserve(1000);
 
@@ -83,7 +109,7 @@ class Level5 extends Phaser.Scene {
         this.clouds.create(23 * 50, 44 * 50, 'dark_cloud');
         this.clouds.create(25 * 50, 43 * 50, 'dark_cloud');
         this.clouds.create(7 * 50, 36 * 50, 'dark_cloud');
-        this.clouds.create(5 * 50, 35 * 50, 'dark_cloud');
+        this.clouds.create(4 * 50, 35 * 50, 'dark_cloud');
         this.clouds.create(10 * 50, 35 * 50, 'dark_cloud');
         this.clouds.create(23 * 50, 26 * 50, 'dark_cloud');
         this.clouds.create(25 * 50, 25 * 50, 'dark_cloud');

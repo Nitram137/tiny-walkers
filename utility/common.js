@@ -99,8 +99,8 @@ export const handleMidgetBehaviour = (currentScene) => {
             midget.body.velocity.x = -100;
             midget.flipX = true;
         }
-        if ((midget.x > 1400 && currentScene.scene.key === "Level4") || (midget.x > 7 * 50 && midget.x < 10 * 50 && midget.y > 54 * 50 && currentScene.scene.key === "Level5")) {
-            midget.body.velocity.y = -300;
+        if ((midget.x > 1400 && currentScene.scene.key === "Level4") || (midget.x > 7 * 50 && midget.x < 10 * 50 && midget.y > 55 * 50 && currentScene.scene.key === "Level5")) {
+            midget.body.velocity.y = -200;
         }
         
         if (currentScene.jellys){
