@@ -13,6 +13,8 @@ class Level5 extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'tower_background').setOrigin(0, 0);
 
+        this.intro = this.sound.add('level1_intro');
+
         var magicBound = new Phaser.Geom.Rectangle(350, 2750, 150, 500);
 
         this.add.particles("purple").createEmitter({
@@ -91,6 +93,9 @@ class Level5 extends Phaser.Scene {
         });
 
         handleArrow(this, 1530, 450)
+
+        this.intro.play();
+
     }
 
     update() {

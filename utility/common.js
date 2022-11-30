@@ -1,6 +1,6 @@
 
-let allMidgets = 1;
-let midgetCount = 1;
+let allMidgets = 5;
+let midgetCount = 5;
 
 let midgetCounterText;
 
@@ -45,6 +45,7 @@ export const goToNextLevel = (currentScene, nextLevel) => {
                 ++currentScene.midgetsFell;
                 midget.out = true;
                 midgetCount--;
+                currentScene.sound.add('midget_fallen').play();
             }
         }
     }

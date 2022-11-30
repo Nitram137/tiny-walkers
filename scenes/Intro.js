@@ -21,6 +21,9 @@ class Intro extends Phaser.Scene {
 
         this.load.image("arrow", "assets/sprites/arrow.png");
         this.load.image("stone", "assets/sprites/stone.png");
+        this.load.audio("level1_intro", "assets/sounds/level1_intro.mp3");
+        this.load.audio("midget_fallen", "assets/sounds/midget_fallen.mp3");
+        
 
         this.load.image("cave_background", "assets/backgrounds/cave.png");
         this.load.image("jelly", "assets/sprites/jelly.png");
@@ -43,6 +46,7 @@ class Intro extends Phaser.Scene {
         this.load.image("dark_cloud", "assets/sprites/dark_cloud.png");
         this.load.image('purple', 'assets/particles/purple.png');
         this.load.image('star', 'assets/particles/star.png');
+        this.load.audio("level5_intro", "assets/sounds/level5_intro.mp3");
 
         this.load.tilemapTiledJSON("dinner", "assets/tilemaps/dinner.json");
         this.load.image("dinner_background", "assets/backgrounds/dinner.png");
@@ -101,7 +105,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.midgetButton.on('pointerup', () => {
-            this.scene.start('Level5');
+            this.scene.start('MainMenu');
         });
 
     }
