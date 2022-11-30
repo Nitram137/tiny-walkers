@@ -1,9 +1,9 @@
 
-class End extends Phaser.Scene {
+class Lost extends Phaser.Scene {
 
     constructor() {
         super({
-            key: "End"
+            key: "Lost"
         });
     }
 
@@ -32,4 +32,4 @@ class End extends Phaser.Scene {
 
 }
 
-export default End;
+export default Lost;

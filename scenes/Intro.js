@@ -44,6 +44,8 @@ class Intro extends Phaser.Scene {
         this.load.image("dark_cloud", "assets/sprites/dark_cloud.png");
         this.load.image('purple', 'assets/particles/purple.png');
         this.load.image('star', 'assets/particles/star.png');
+
+        this.load.tilemapTiledJSON("dinner", "assets/tilemaps/dinner.json");
     }
 
     create() {
@@ -94,7 +96,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.midgetButton.on('pointerup', () => {
-            this.scene.start('Level5');
+            this.scene.start('Won');
         });
 
     }

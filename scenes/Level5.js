@@ -103,7 +103,7 @@ class Level5 extends Phaser.Scene {
                 })
             }
         }
-        goToNextLevel(this, "MainMenu");
+        goToNextLevel(this, "Won");
     }
 
     spawnClouds() {

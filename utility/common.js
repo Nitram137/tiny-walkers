@@ -50,7 +50,7 @@ export const goToNextLevel = (currentScene, nextLevel) => {
     }
 
     if(midgetCount === 0) {
-        currentScene.scene.start('End');
+        currentScene.scene.start('Lost');
     } else if (currentScene.midgetsPassed + currentScene.midgetsFell === currentScene.midgets.children.entries.length) {
         allMidgets = midgetCount;
         currentScene.game.sound.stopAll();
