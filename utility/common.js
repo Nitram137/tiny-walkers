@@ -1,6 +1,6 @@
 
-let allMidgets = 5;
-let midgetCount = 5;
+let allMidgets = 1;
+let midgetCount = 1;
 
 let midgetCounterText;
 
@@ -72,8 +72,7 @@ export const spawnMidgets = (currentScene, x, y, delay) => {
 
 const spawnMidget = (currentScene, x, y) => {
     if (currentScene.midgets.children.entries.length < allMidgets) { 
-        let midget = currentScene.midgets.create(x, y, 'midget').setScale(0.1);
-        midget.setVelocityX(100);
+        currentScene.midgets.create(x, y, 'midget').setScale(0.1).setDepth(2).setVelocityX(100);
     }
 }
 

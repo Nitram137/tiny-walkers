@@ -38,7 +38,6 @@ class Intro extends Phaser.Scene {
         this.load.image("dungeon_background", "assets/backgrounds/dungeon.png");
         this.load.audio("unlock", "assets/sounds/unlock.mp3");
 
-        this.load.image("dungeon_tiles", "assets/tilemaps/dungeon.png");
         this.load.tilemapTiledJSON("tower", "assets/tilemaps/tower.json");
         this.load.image("tower_background", "assets/backgrounds/tower.png");
         this.load.image("dark_cloud", "assets/sprites/dark_cloud.png");
@@ -46,6 +45,12 @@ class Intro extends Phaser.Scene {
         this.load.image('star', 'assets/particles/star.png');
 
         this.load.tilemapTiledJSON("dinner", "assets/tilemaps/dinner.json");
+        this.load.image("dinner_background", "assets/backgrounds/dinner.png");
+        this.load.audio("dinner_song", "assets/sounds/Happy-Day-in-Paris.mp3");
+        this.load.image("dragon", "assets/sprites/dragon.png");
+        this.load.image("dragon_mouth", "assets/sprites/dragon_mouth.png");
+        this.load.image("tablecloth", "assets/sprites/tablecloth.png");
+        this.load.image("candle", "assets/sprites/candle.png");
     }
 
     create() {
@@ -96,7 +101,7 @@ class Intro extends Phaser.Scene {
         });
 
         this.midgetButton.on('pointerup', () => {
-            this.scene.start('Won');
+            this.scene.start('Level5');
         });
 
     }
