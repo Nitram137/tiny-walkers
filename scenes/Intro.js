@@ -23,6 +23,8 @@ class Intro extends Phaser.Scene {
         this.load.image("stone", "assets/sprites/stone.png");
         this.load.audio("level1_intro", "assets/sounds/level1_intro.mp3");
         this.load.audio("midget_fallen", "assets/sounds/midget_fallen.mp3");
+        this.load.audio("midget_passed", "assets/sounds/midget_passed.mp3");
+        this.load.audio("tump", "assets/sounds/tump.mp3");
         
 
         this.load.image("cave_background", "assets/backgrounds/cave.png");
@@ -47,6 +49,9 @@ class Intro extends Phaser.Scene {
         this.load.image('purple', 'assets/particles/purple.png');
         this.load.image('star', 'assets/particles/star.png');
         this.load.audio("level5_intro", "assets/sounds/level5_intro.mp3");
+        this.load.audio("hah", "assets/sounds/hah.mp3");
+        this.load.audio("magic", "assets/sounds/magic.mp3");
+        
 
         this.load.tilemapTiledJSON("dinner", "assets/tilemaps/dinner.json");
         this.load.image("dinner_background", "assets/backgrounds/dinner.png");

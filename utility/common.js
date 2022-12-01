@@ -2,8 +2,6 @@
 let allMidgets = 5;
 let midgetCount = 5;
 
-let midgetCounterText;
-
 export class MidgetCounter extends Phaser.Scene {
 
     constructor() {
@@ -38,6 +36,8 @@ export const goToNextLevel = (currentScene, nextLevel) => {
                 (midget.x > 1600 && midget.y < 600 && currentScene.scene.key === "Level5")) {
                 ++currentScene.midgetsPassed;
                 midget.out = true;
+                if (!currentScene.midgetPassed) currentScene.midgetPassed = currentScene.sound.add('midget_passed');
+                currentScene.midgetPassed.play();
             }
             if ((midget.y > 600 && currentScene.scene.key !== "Level4" && currentScene.scene.key !== "Level5") || 
                 (midget.y > 1800 && currentScene.scene.key === "Level4") || 
@@ -45,7 +45,8 @@ export const goToNextLevel = (currentScene, nextLevel) => {
                 ++currentScene.midgetsFell;
                 midget.out = true;
                 midgetCount--;
-                currentScene.sound.add('midget_fallen').play();
+                if (!currentScene.midgetFallen) currentScene.midgetFallen = currentScene.sound.add('midget_fallen');
+                currentScene.midgetFallen.play();
             }
         }
     }

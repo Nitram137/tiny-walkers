@@ -13,7 +13,9 @@ class Level5 extends Phaser.Scene {
     create() {
         this.add.image(0, 0, 'tower_background').setOrigin(0, 0);
 
-        this.intro = this.sound.add('level1_intro');
+        this.intro = this.sound.add('level5_intro');
+        this.hah = this.sound.add('hah');
+        this.magic = this.sound.add('magic');
 
         var magicBound = new Phaser.Geom.Rectangle(350, 2750, 150, 500);
 
@@ -105,6 +107,8 @@ class Level5 extends Phaser.Scene {
                 midget.setInteractive();
                 midget.on('pointerover', () => {
                     midget.body.velocity.y = -300;
+                    this.hah.play();
+                    this.magic.play();
                 })
             }
         }
