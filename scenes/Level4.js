@@ -11,6 +11,7 @@ class Level4 extends Phaser.Scene {
     }
 
     create() {
+        this.game.sound.stopAll();
 
         this.add.image(0, 0, 'dungeon_background').setOrigin(0, 0);
 

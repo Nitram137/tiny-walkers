@@ -58,6 +58,8 @@ class Intro extends Phaser.Scene {
         this.load.audio("dinner_song", "assets/sounds/Happy-Day-in-Paris.mp3");
         this.load.image("dragon", "assets/sprites/dragon.png");
         this.load.image("dragon_mouth", "assets/sprites/dragon_mouth.png");
+        this.load.image("dragon_tongue", "assets/sprites/dragon_tongue.png");
+        this.load.image("dragon_eye", "assets/sprites/dragon_eye.png");
         this.load.image("tablecloth", "assets/sprites/tablecloth.png");
         this.load.image("candle", "assets/sprites/candle.png");
     }

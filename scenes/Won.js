@@ -37,13 +37,32 @@ class Won extends Phaser.Scene {
         this.dinnerSong.play();
 
         this.dragon = this.add.image(2800, 470, 'dragon').setScale(1.5).setDepth(3);
-
         this.dragonMouth = this.add.image(2800, 470, 'dragon_mouth').setScale(1.5).setDepth(1);
+        this.dragonTongue = this.add.image(2800, 500, 'dragon_tongue').setScale(1.5).setDepth(1);
+        this.dragonEye = this.add.image(2800, 470, 'dragon_eye').setScale(1.5).setDepth(4);
 
         this.tweens.add({
-            targets: [this.dragon, this.dragonMouth],
+            targets: [this.dragon, this.dragonMouth, this.dragonEye],
             y: this.dragon.y + 20,
             duration: 500,
+            yoyo: true,
+            repeat: -1,
+            callbackScope: this,
+        })
+
+        this.time.addEvent({
+            delay: 750,
+            callback: () => {
+                if (this.dragonEye.alpha) this.dragonEye.alpha = 0;
+                else this.dragonEye.alpha = 1;
+            },
+            loop: true
+        })
+
+        this.tweens.add({
+            targets: [this.dragonTongue],
+            y: this.dragonTongue.y + 5,
+            duration: 200,
             yoyo: true,
             repeat: -1,
             callbackScope: this,
