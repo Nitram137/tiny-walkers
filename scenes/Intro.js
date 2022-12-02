@@ -112,6 +112,8 @@ class Intro extends Phaser.Scene {
         });
 
         this.midgetButton.on('pointerup', () => {
+            this.scale.startFullscreen();
+            screen.orientation.lock('landscape');
             this.scene.start('MainMenu');
         });
 
